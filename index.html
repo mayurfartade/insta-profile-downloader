@@ -1,0 +1,91 @@
+<!--Author: Mayur Fartade-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <!-- meta tags -->
+    <meta charset="UTF-8">
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="website" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Insta Downloader</title>
+    
+    <!-- ---------------Bootstrap CSS------------------------------------------------------------------------------- -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <!-- ---------------------------------------------------------------------------------------------- -->
+
+    <!-- ---------------------------------------------------------------------------------------------- -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- ---------------------------------------------------------------------------------------------- -->
+</head>
+
+<body>
+    
+
+
+
+    <div class="container mt-5 mb-5 text-center" style="max-width: 500px;">
+
+        <h2><b>Insta Profile Photo Downloader</b></h2>
+
+        <img src="img.svg" alt="img" class="img-fluid mt-5" style="width: 300px;">
+
+
+        <div class="form-group mt-5">
+            <input type="text" class="form-control rounded-0 border-dark" id="username" placeholder="Enter Username">
+        </div>
+
+        <button class="btn btn-outline-dark rounded" id="download" onclick="download_image()">view</button>
+
+        <img src="" alt="None" id="image" class="img-fluid mt-4 text-center" style="display: none; width: 300px;">
+
+
+
+        <div class="mt-5">
+           <strong> Download the source code from <a href="https://github.com/mayurfartade/insta-profile-downloader" target="_blank">github</a></strong>
+        </div>
+    </div>
+
+
+
+
+    
+
+
+<script>
+    
+    function download_image()
+    {
+        var url = "https://instagram.com/" + document.getElementById('username').value + "?__a=1";
+
+        $("#download").html('Loading');
+
+        $.ajax({
+            url: url,
+            type:'get',
+            success:function(response)
+            {
+                    var profile = response.graphql.user.profile_pic_url_hd;
+                   
+                    $("#image").attr("src",profile);
+                    document.getElementById("image").style.display = "block"; 
+                    $("#download").html('View');                    
+            },
+            error: function (error) {
+                alert("User Not Found");
+                $("#download").html('View');
+                document.getElementById("image").style.display = "none";
+            }
+
+        });
+        
+    }
+
+</script>
+
+
+
+</body>
+</html>
